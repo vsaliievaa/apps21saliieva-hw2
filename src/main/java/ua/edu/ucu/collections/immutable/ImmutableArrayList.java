@@ -1,18 +1,29 @@
 package ua.edu.ucu.collections.immutable;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public final class ImmutableArrayList implements ImmutableList {
+
+    private ArrayList<Object> elements;
+
     public ImmutableArrayList(Object[] elements) {
+        this.elements = new ArrayList<>();
+        for (Object item: elements) {
+            if (item != null) {
+                this.elements.add(item);
+            }
+        }
     }
 
     public ImmutableArrayList() {
+        this.elements = new ArrayList<>();
     }
 
     @Override
     public ImmutableList add(Object e) {
-        return null;
+        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
+        newList.elements.add(e);
+        return newList;
     }
 
     @Override
@@ -22,7 +33,11 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList addAll(Object[] c) {
-        return null;
+        ImmutableArrayList newList = new ImmutableArrayList();
+        List<Object> copiedElements = Arrays.asList(Arrays.copyOf(elements.toArray(), this.size()));
+        newList.elements = (ArrayList<Object>)copiedElements;
+        Collections.addAll(newList.elements, c);
+        return newList;
     }
 
     @Override
@@ -32,7 +47,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        return null;
+        return elements.get(index);
     }
 
     @Override
@@ -42,31 +57,47 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList set(int index, Object e) {
-        return null;
+        ImmutableArrayList newList = new ImmutableArrayList();
+        List<Object> copiedElements = Arrays.asList(Arrays.copyOf(elements.toArray(), this.size()));
+        newList.elements = (ArrayList<Object>)copiedElements;
+
+        newList.set(index, e);
+
+        return newList;
     }
 
     @Override
     public int indexOf(Object e) {
-        return 0;
+        for (int i = 0; i < this.size(); i++) {
+            if (elements.get(i) == e) {
+                return i;
+            }
+        }
+        throw new NoSuchElementException("Element not found");
     }
 
     @Override
     public int size() {
-        return 0;
+        return elements.size();
     }
 
     @Override
     public ImmutableList clear() {
-        return null;
+        ImmutableArrayList newList = new ImmutableArrayList();
+        return newList;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return elements.isEmpty();
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] array = new Object[this.size()];
+        for (int i = 0; i < this.size(); i++) {
+            array[i] = this.get(i);
+        }
+        return array;
     }
 }
