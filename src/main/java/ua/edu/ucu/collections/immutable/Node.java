@@ -10,7 +10,7 @@ public class Node {
         if (this.value != null) {
             return value.toString();
         }
-        return null;
+        return "";
     }
 
     public Node getPrevious() {
