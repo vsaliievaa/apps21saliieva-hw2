@@ -1,6 +1,8 @@
-package ua.edu.ucu.collections.immutable;
+package ua.edu.ucu.collections;
 
 import junit.framework.TestCase;
+import ua.edu.ucu.collections.immutable.ImmutableArrayList;
+import ua.edu.ucu.collections.immutable.ImmutableList;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -21,7 +23,7 @@ public class ImmutableArrayListTest extends TestCase {
 
         assertNotNull(arrayList);
         assertEquals(0, arrayList.size());
-        assertEquals("[]", Arrays.toString(arrayList.toArray()));
+        assertEquals("ImmutableArrayList(elements=[], size=0)", arrayList.toString());
     }
 
     public void testAdd() {
@@ -34,15 +36,15 @@ public class ImmutableArrayListTest extends TestCase {
     public void testAddWithIndex() {
         Object[] elements = {"test", "add", "method"};
         ImmutableList arrayList = new ImmutableArrayList(elements);
-        Object toAdd = "success";
-        int toAddIdx = 3;
+        Object toAdd = "successful";
+        int toAddIdx = 0;
 
         ImmutableList newArrayList = arrayList.add(toAddIdx, toAdd);
 
         Object[] elementsToArray = arrayList.toArray();
         Object[] newElementsToArray = newArrayList.toArray();
         assertEquals("[test, add, method]", Arrays.toString(elementsToArray));
-        assertEquals("[test, add, method, success]", Arrays.toString(newElementsToArray));
+        assertEquals("[successful, test, add, method]", Arrays.toString(newElementsToArray));
     }
 
     public void testAddAll() {

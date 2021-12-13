@@ -5,15 +5,10 @@ public class Node {
     private Node next;
     private Object value;
 
-    public Node(Object val) {
-        this.value = val;
-    }
-
     @Override
     public String toString() {
         return value.toString();
     }
-
 
     public Node getPrevious() {
         return this.previous;

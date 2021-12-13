@@ -1,80 +1,83 @@
 package ua.edu.ucu.collections.immutable;
 
+import lombok.ToString;
+
 import java.util.*;
 
+@ToString
 public final class ImmutableArrayList implements ImmutableList {
 
-    private ArrayList<Object> elements;
+    private Object[] elements;
+    private int size = 0;
 
     public ImmutableArrayList(Object[] elements) {
-        this.elements = new ArrayList<>();
-        for (Object item: elements) {
-            if (item != null) {
-                this.elements.add(item);
-            }
-        }
+        this.size = elements.length;
+        this.elements = elements;
     }
 
     public ImmutableArrayList() {
-        this.elements = new ArrayList<>();
+        this.size = 0;
+        this.elements = new Object[]{};
     }
 
     @Override
     public ImmutableList add(Object e) {
-        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
-        newList.elements.add(e);
-        return newList;
+        return add(this.size, e);
     }
 
     @Override
     public ImmutableList add(int index, Object e) {
-        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
-        newList.elements.add(index, e);
+        Object[] toCopy = new Object[this.size + 1];
+        System.arraycopy(elements, 0, toCopy, 0, index);
+        toCopy[index] = e;
+        System.arraycopy(elements, index, toCopy, index + 1, this.size - index);
 
-        return newList;
+        return new ImmutableArrayList(toCopy);
     }
 
     @Override
     public ImmutableList addAll(Object[] c) {
-        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
-        Collections.addAll(newList.elements, c);
-
-        return newList;
+        return addAll(this.size, c);
     }
 
     @Override
     public ImmutableList addAll(int index, Object[] c) {
-        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
-        newList.elements.addAll(index, Arrays.asList(c));
+        Object[] toCopy = new Object[this.size + c.length];
+        System.arraycopy(this.elements, 0, toCopy, 0, index);
+        System.arraycopy(c, 0, toCopy, index, c.length);
+        System.arraycopy(elements, index, toCopy, index + c.length, this.size - index);
 
-        return newList;
+        return new ImmutableArrayList(toCopy);
     }
 
     @Override
     public Object get(int index) {
-        return elements.get(index);
+        return elements[index];
     }
 
     @Override
     public ImmutableList remove(int index) {
-        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
-        newList.elements.remove(index);
+        Object[] toCopy = new Object[this.size-1];
 
-        return newList;
+        System.arraycopy(elements, 0, toCopy, 0, index);
+        System.arraycopy(elements, index+1, toCopy, index, this.size-index-1);
+
+        return new ImmutableArrayList(toCopy);
     }
 
     @Override
     public ImmutableList set(int index, Object e) {
-          ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
-          newList.elements.set(index, e);
+        Object[] toCopy = new Object[this.size];
+        System.arraycopy(elements, 0, toCopy, 0, this.size);
+        toCopy[index] = e;
 
-        return newList;
+        return new ImmutableArrayList(toCopy);
     }
 
     @Override
     public int indexOf(Object e) {
         for (int i = 0; i < this.size(); i++) {
-            if (elements.get(i) == e) {
+            if (elements[i] == e) {
                 return i;
             }
         }
@@ -83,7 +86,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public int size() {
-        return elements.size();
+        return elements.length;
     }
 
     @Override
@@ -94,15 +97,13 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public boolean isEmpty() {
-        return elements.isEmpty();
+        return elements.length == 0;
     }
 
     @Override
     public Object[] toArray() {
         Object[] array = new Object[this.size()];
-        for (int i = 0; i < this.size(); i++) {
-            array[i] = this.get(i);
-        }
+        System.arraycopy(this.elements, 0, array, 0, this.size());
         return array;
     }
 }
