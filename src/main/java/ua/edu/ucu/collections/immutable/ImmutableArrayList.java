@@ -13,6 +13,7 @@ public final class ImmutableArrayList implements ImmutableList {
     public ImmutableArrayList(Object[] elements) {
         this.size = elements.length;
         this.elements = elements;
+        System.arraycopy(elements, 0, this.elements, 0, size);
     }
 
     public ImmutableArrayList() {

@@ -7,7 +7,10 @@ public class Node {
 
     @Override
     public String toString() {
-        return value.toString();
+        if (this.value != null) {
+            return value.toString();
+        }
+        return null;
     }
 
     public Node getPrevious() {

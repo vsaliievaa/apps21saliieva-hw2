@@ -1,8 +1,6 @@
 package ua.edu.ucu.collections.immutable;
 
 import junit.framework.TestCase;
-import ua.edu.ucu.collections.immutable.ImmutableArrayList;
-import ua.edu.ucu.collections.immutable.ImmutableList;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
