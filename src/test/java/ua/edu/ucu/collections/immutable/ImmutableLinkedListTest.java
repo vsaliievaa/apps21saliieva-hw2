@@ -85,6 +85,18 @@ public class ImmutableLinkedListTest extends TestCase {
                 Arrays.toString(newLinkedList.toArray()));
     }
 
+    public void testRemoveIndexOutOfBounds() {
+        Object[] elements = {"some", "useful", "info"};
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(elements);
+
+        try {
+            linkedList.remove(4);
+            fail("No exception caught");
+        } catch (IndexOutOfBoundsException exc) {
+            assertEquals("Index out of range.", exc.getMessage());
+        }
+    }
+
     public void testSet() {
         Object[] elements = {true, false, false, "true", false, true};
         ImmutableLinkedList linkedList = new ImmutableLinkedList(elements);
@@ -95,12 +107,35 @@ public class ImmutableLinkedListTest extends TestCase {
                 Arrays.toString(newLinkedList.toArray()));
     }
 
+    public void testSetIndexOutOfBounds() {
+        Object[] elements = {true, false, "info"};
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(elements);
+
+        try {
+            ImmutableList newLinkedList = linkedList.set(10, "false");
+            fail("No exception caught");
+        } catch (IndexOutOfBoundsException exc) {
+            assertEquals("Index out of range.", exc.getMessage());
+        }
+
+    }
+
     public void testIndexOf() {
         Object[] elements = {true, false, false, "true", false, true};
         ImmutableLinkedList linkedList = new ImmutableLinkedList(elements);
 
         int expIdx = 3;
         int actualIdx = linkedList.indexOf("true");
+
+        assertEquals(expIdx, actualIdx);
+    }
+
+    public void testIndexOfWithNoSuchElements() {
+        Object[] elements = {false, false, false};
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(elements);
+
+        int expIdx = -1;
+        int actualIdx = linkedList.indexOf(true);
 
         assertEquals(expIdx, actualIdx);
     }

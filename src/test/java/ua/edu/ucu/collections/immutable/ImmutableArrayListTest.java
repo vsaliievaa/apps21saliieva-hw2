@@ -1,4 +1,4 @@
-package ua.edu.ucu.collections;
+package ua.edu.ucu.collections.immutable;
 
 import junit.framework.TestCase;
 import ua.edu.ucu.collections.immutable.ImmutableArrayList;

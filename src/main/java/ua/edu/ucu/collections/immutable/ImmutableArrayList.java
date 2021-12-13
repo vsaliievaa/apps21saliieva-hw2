@@ -2,13 +2,13 @@ package ua.edu.ucu.collections.immutable;
 
 import lombok.ToString;
 
-import java.util.*;
+import java.util.NoSuchElementException;
 
 @ToString
 public final class ImmutableArrayList implements ImmutableList {
 
-    private Object[] elements;
-    private int size = 0;
+    private final Object[] elements;
+    private final int size;
 
     public ImmutableArrayList(Object[] elements) {
         this.size = elements.length;
@@ -45,7 +45,8 @@ public final class ImmutableArrayList implements ImmutableList {
         Object[] toCopy = new Object[this.size + c.length];
         System.arraycopy(this.elements, 0, toCopy, 0, index);
         System.arraycopy(c, 0, toCopy, index, c.length);
-        System.arraycopy(elements, index, toCopy, index + c.length, this.size - index);
+        System.arraycopy(elements, index, toCopy, index + c.length,
+                this.size - index);
 
         return new ImmutableArrayList(toCopy);
     }
@@ -91,8 +92,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList clear() {
-        ImmutableArrayList newList = new ImmutableArrayList();
-        return newList;
+        return new ImmutableArrayList();
     }
 
     @Override

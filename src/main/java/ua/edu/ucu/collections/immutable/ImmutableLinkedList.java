@@ -54,7 +54,8 @@ public final class ImmutableLinkedList implements ImmutableList {
         Object[] oldElements = toArray();
         System.arraycopy(oldElements, 0, newElements, 0, index);
         newElements[index] = e;
-        System.arraycopy(oldElements, index, newElements, index + 1, size - index);
+        System.arraycopy(oldElements, index, newElements, index + 1,
+                size - index);
 
         return new ImmutableLinkedList(newElements);
     }
@@ -70,7 +71,8 @@ public final class ImmutableLinkedList implements ImmutableList {
         Object[] oldElements = toArray();
         System.arraycopy(oldElements, 0, newElements, 0, index);
         System.arraycopy(c, 0, newElements, index, c.length);
-        System.arraycopy(oldElements, index, newElements, index + c.length, this.size - index);
+        System.arraycopy(oldElements, index, newElements, index + c.length,
+                this.size - index);
         return new ImmutableLinkedList(newElements);
     }
 
@@ -98,7 +100,8 @@ public final class ImmutableLinkedList implements ImmutableList {
         Object[] newElements = new Object[size - 1];
         Object[] oldElements = toArray();
         System.arraycopy(oldElements, 0, newElements, 0, index);
-        System.arraycopy(oldElements, index + 1, newElements, index, size - index - 1);
+        System.arraycopy(oldElements, index + 1, newElements, index,
+                size - index - 1);
         return new ImmutableLinkedList(newElements);
     }
 

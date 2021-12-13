@@ -7,7 +7,7 @@ public class Queue {
     private ImmutableLinkedList queue;
 
     public Queue() {
-        this.queue= new ImmutableLinkedList();
+        this.queue = new ImmutableLinkedList();
     }
 
     public Object peek() {
