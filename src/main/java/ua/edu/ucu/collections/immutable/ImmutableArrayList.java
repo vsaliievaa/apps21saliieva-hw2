@@ -28,21 +28,26 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList add(int index, Object e) {
-        return null;
+        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
+        newList.elements.add(index, e);
+
+        return newList;
     }
 
     @Override
     public ImmutableList addAll(Object[] c) {
-        ImmutableArrayList newList = new ImmutableArrayList();
-        List<Object> copiedElements = Arrays.asList(Arrays.copyOf(elements.toArray(), this.size()));
-        newList.elements = (ArrayList<Object>)copiedElements;
+        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
         Collections.addAll(newList.elements, c);
+
         return newList;
     }
 
     @Override
     public ImmutableList addAll(int index, Object[] c) {
-        return null;
+        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
+        newList.elements.addAll(index, Arrays.asList(c));
+
+        return newList;
     }
 
     @Override
@@ -52,16 +57,16 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList remove(int index) {
-        return null;
+        ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
+        newList.elements.remove(index);
+
+        return newList;
     }
 
     @Override
     public ImmutableList set(int index, Object e) {
-        ImmutableArrayList newList = new ImmutableArrayList();
-        List<Object> copiedElements = Arrays.asList(Arrays.copyOf(elements.toArray(), this.size()));
-        newList.elements = (ArrayList<Object>)copiedElements;
-
-        newList.set(index, e);
+          ImmutableArrayList newList = new ImmutableArrayList(elements.toArray());
+          newList.elements.set(index, e);
 
         return newList;
     }
@@ -73,7 +78,7 @@ public final class ImmutableArrayList implements ImmutableList {
                 return i;
             }
         }
-        throw new NoSuchElementException("Element not found");
+        throw new NoSuchElementException("Element not found.");
     }
 
     @Override
